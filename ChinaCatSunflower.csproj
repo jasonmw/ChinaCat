@@ -9,10 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.24" />
         <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
         <PackageReference Include="EntityFrameworkCore.NamingConventions" Version="8.0.0" />
