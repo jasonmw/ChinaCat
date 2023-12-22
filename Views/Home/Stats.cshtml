@@ -1,0 +1,74 @@
+﻿@model System.Collections.Generic.List<ChinaCatSunflower.Data.Models.FibCountRecord>
+<h1>Fib Stats</h1>
+<p>This is a test to get chart.js working, it uses data from the fib refresher page.</p>
+<div>
+<canvas id="statchart"></canvas>
+</div>
+<div class="p5">
+    <table class="table table-bordered table-striped">
+        <!-- create table to display the Model data-->
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Fibs</td>
+                <td>@item.times.ToString("#,##0")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+    
+    $(function (){
+        
+        const data = @Html.Raw(Json.Serialize(Model));
+        const ctx = document.getElementById('statchart').getContext('2d');
+        
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: data.map(d => d.fibs),
+              datasets: [{
+                label: 'Frequency of Fibbionocci',
+                data: data.map(d => d.times),
+                borderWidth: 1,
+                                  backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)'
+                                  ],
+                                  borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)'
+                                  ]
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+    });
+    </script>
+}

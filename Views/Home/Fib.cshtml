@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Random Fibonacci Number</h1>
+    <p>Each time you click inside the blue box, htmx will reload the number, plus the sequence to get to the number</p>
+    <p>this uses htmx oob and replaces content in two places on the page with one htmx request/response call</p>
+    <div hx-get="/another-random" hx-trigger="load, click" style="cursor:pointer;border: 5px solid blue;" class="p-5">
+        @await Html.PartialAsync("_MyPartial",(long)Random.Shared.Next(1,100))
+    </div>
+    <div id="nums" hx-swap-oob="true">
+    </div>
+    
+</div>
