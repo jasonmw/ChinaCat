@@ -9,7 +9,7 @@
     <div hx-get="/another-random" hx-trigger="load, click" style="cursor:pointer;border: 5px solid blue;" class="p-5">
         @await Html.PartialAsync("_MyPartial",(long)Random.Shared.Next(1,100))
     </div>
-    <div id="nums" hx-swap-oob="true">
+    <div id="nums">
     </div>
     
 </div>

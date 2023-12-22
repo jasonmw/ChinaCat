@@ -1,0 +1,13 @@
+﻿@model ChinaCatSunflower.Models.Book.AddBook
+<form method="post" hx-post="@Url.Action("Add")" hx-swap="outerHTML">
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="ISBN" asp-for="ISBN" />
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add</button>
+    </div>
+    
+</div>
+    <div>
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+﻿@model ChinaCatSunflower.Models.Book.BookIndexModel
+
+<h2>Books</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        Add a new book via ISBN
+    </div>
+    <div class="col">
+        
+        @await Html.PartialAsync("_BookForm", Model.AddNewBook)
+
+    </div>
+</div>
+
+<hr/>
+<div>
+    <div id="book_details"></div>
+</div>

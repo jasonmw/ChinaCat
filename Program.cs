@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System.Data.Common;
 using ChinaCatSunflower.AppHelpers;
 using ChinaCatSunflower.Repositories;
+using ChinaCatSunflower.Services;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -53,8 +54,12 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddAntiforgery(af => {
     af.Cookie.Name = ".chinacat.af";
 });
-
+builder.Services.AddHttpClient(ApplicationSettings.HTTP_CLIENT_OPEN_LIBRARY, client => {
+    client.BaseAddress = new Uri("https://openlibrary.org/");
+});
+builder.Services.AddTransient<BookRetrievalService>();
 builder.Services.AddTransient<FibLogRepository>();
+builder.Services.AddTransient<BookRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
