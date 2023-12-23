@@ -1,0 +1,10 @@
+﻿@model List<ChinaCatSunflower.Data.Models.Book>
+@foreach (var book in Model) {
+    <tr>
+        <td data-id="@book.id">@book.isbn</td>
+        <td>@book.title</td>
+        <td>@book.author</td>
+        <td>@book.published_date.ToShortDateString()</td>
+        <td>@book.page_count</td>
+    </tr>
+}
