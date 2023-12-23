@@ -21,7 +21,7 @@ public class HomeController : Controller
     }
 
     public IActionResult ChangeMe() {
-        return Content($"Changed at {DateTime.Now:O}");
+        return Content($"Changed at {DateTime.Now:O}", "text/html");
     }
     public IActionResult Fib() {
         return View();
