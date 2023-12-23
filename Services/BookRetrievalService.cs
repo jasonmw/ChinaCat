@@ -36,18 +36,25 @@ public class BookRetrievalService
         if (book_retrieval is null) {
             return null;
         }
-
-        if (book_retrieval.details.publish_date.Length < 5 && int.TryParse(book_retrieval.details.publish_date, out _)) {
+        if(book_retrieval.details.publish_date is null) {
+            book_retrieval.details.publish_date = "1/1/1970";
+        } else if( book_retrieval.details.publish_date.Length < 5 && int.TryParse(book_retrieval.details.publish_date, out _)) {
             book_retrieval.details.publish_date = $"1/1/{book_retrieval.details.publish_date}";
+        }
+        if(book_retrieval.details.publish_date.Contains("th ")) {
+            book_retrieval.details.publish_date = book_retrieval.details.publish_date.Replace("th ", " ");
+        }
+        if(!DateTime.TryParse(book_retrieval.details.publish_date, out DateTime date)) {
+            date = new DateTime(1970, 1, 1);
         }
         var book = new Book {
             book_json = book_json,
             isbn = isbn,
             title = book_retrieval.details.title,
-            author = book_retrieval.details.authors.First().name,
+            author = book_retrieval.details?.authors?.FirstOrDefault()?.name ?? "unknown",
             image_url = book_retrieval.thumbnail_url?.Replace("-S.", "-L.")??"",
-            page_count = book_retrieval.details.number_of_pages,
-            published_date = DateTime.Parse(book_retrieval.details.publish_date)
+            page_count = book_retrieval.details.number_of_pages??999,
+            published_date = date
         };
         return book;
     }
@@ -81,15 +88,15 @@ public class BookRetrievalService
         public List<int> covers { get; set; }
         public string physical_format { get; set; }
         public string key { get; set; }
-        public List<Author> authors { get; set; }
+        public List<Author>? authors { get; set; }
         public string ocaid { get; set; }
         public List<string> subjects { get; set; }
         public List<string> source_records { get; set; }
         public string title { get; set; }
-        public int number_of_pages { get; set; }
+        public int? number_of_pages { get; set; }
         public List<string> isbn_13 { get; set; }
         public List<string> isbn_10 { get; set; }
-        public string publish_date { get; set; }
+        public string? publish_date { get; set; }
         public List<string> oclc_numbers { get; set; }
         public List<Work> works { get; set; }
         public Type type { get; set; }

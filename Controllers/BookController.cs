@@ -1,9 +1,11 @@
 ﻿using ChinaCatSunflower.Models.Book;
 using ChinaCatSunflower.Repositories;
 using ChinaCatSunflower.Services;
+using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Npgsql;
 
 namespace ChinaCatSunflower.Controllers;
 
@@ -17,9 +19,16 @@ public class BookController : Controller
         _book_repository = book_repository;
     }
     // GET
-    public IActionResult Index() {
+    public async Task<IActionResult> Index() {
         var model = new BookIndexModel();
         return View(model);
+    }
+
+    [HttpGet]
+    [Route("/books/load")]
+    public async Task<IActionResult> LoadBooks() {
+        var model = await _book_repository.GetBooksWithoutTheJson();
+        return PartialView("_BookRows", model);
     }
     [HttpPost]
     public async Task<IActionResult> Add([FromForm]AddBook addBook) {
@@ -33,9 +42,20 @@ public class BookController : Controller
             return PartialView("_BookForm", addBook);
         }
 
-        await _book_repository.AddBook(book);
+        try {
+            await _book_repository.AddBook(book);
+        }
+        catch (NpgsqlException sex) {
+            if (sex.Message.Contains("duplicate key value")) {
+                ModelState.Clear();
+                ModelState.AddModelError("ISBN", $"A book with the ISBN number {addBook.ISBN} already exists in the database");
+                
+                return PartialView("_BookForm", new AddBook());
+            }
+        }
 
         ModelState.Clear();
+        Response.Htmx(h => h.WithTrigger("bookadd"));
         return PartialView("_BookAdded", book);
     }
 }

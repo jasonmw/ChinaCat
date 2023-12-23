@@ -41,4 +41,13 @@ public class BookRepository : BasePgRepository
         var book = await conn.QueryFirstOrDefaultAsync<Book>(sql, new{isbn});
         return book;
     }
+    
+    public async Task<List<Book>> GetBooksWithoutTheJson() {
+        await using var conn = await GetNewOpenConnection();
+        var sql = @"
+            SELECT id, isbn, title, author, image_url, created_date, published_date, page_count FROM public.books
+        ";
+        var books = await conn.QueryAsync<Book>(sql);
+        return books.ToList();
+    }
 }

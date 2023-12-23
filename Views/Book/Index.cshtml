@@ -15,7 +15,31 @@
     </div>
 </div>
 
-<hr/>
 <div>
     <div id="book_details"></div>
 </div>
+<hr/>
+<div>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Published</th>
+            <th>Pages</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="book_table_body" hx-get="/books/load" hx-trigger="load, bookadd from:body">
+        </tbody>
+    </table>
+
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(event){
+           htmx.config.useTemplateFragments = true;
+        });
+    </script>
+}
