@@ -19,6 +19,10 @@ public class HomeController : Controller
     public IActionResult Index() {
         return View();
     }
+
+    public IActionResult ChangeMe() {
+        return Content($"Changed at {DateTime.Now:O}");
+    }
     public IActionResult Fib() {
         return View();
     }
