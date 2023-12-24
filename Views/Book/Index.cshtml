@@ -4,11 +4,11 @@
 
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        Add a new book via ISBN
+<div class="row tw-pb-3 tw-pt-4">
+    <div class="offset-2 col-4 tw-flex tw-justify-end tw-text-3xl tw-italic">
+        Add a new book via ISBN (10)
     </div>
-    <div class="col">
+    <div class="col-4">
         
         @await Html.PartialAsync("_BookForm", Model.AddNewBook)
 
@@ -20,7 +20,7 @@
 </div>
 <hr/>
 <div>
-    <table class="table table-striped table-sm">
+    <table class="table table-striped table-sm tw-text-orange-700">
         <thead>
         <tr>
             <th>ISBN</th>

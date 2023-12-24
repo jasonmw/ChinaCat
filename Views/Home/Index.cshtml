@@ -1,14 +1,15 @@
 ﻿@model object
 
-<h1>China Cat Test App</h1>
+<h1 class="tw-pb-3">China Cat Test App</h1>
 <hr/>
-<div class="card m-5 p-5 ms-0 text-center">
+<div class="card m-5 p-5 ms-0 text-center tw-border-2 tw-border-gray-400">
     <h2 class="fs-1 mb-4" id="target">
         Change Me!
     </h2>
-    <button class="btn btn-primary btn-lg px-4"
+    <button class="btn btn-lg px-4 tw-bg-emerald-500 tw-text-yellow-400"
             hx-get="/home/changeme"
-            hx-target="#target">
+            hx-target="#target"
+            >
         Click Me!
     </button>
 </div>

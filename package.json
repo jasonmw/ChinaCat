@@ -1,0 +1,23 @@
+{
+  "name": "chinacatsunflower",
+  "version": "1.0.0",
+  "description": "*this is probably inefficient and an improper use of the principal of least privelege for the database user, but this is just a demo, so ... deal*",
+  "main": "index.js",
+  "scripts": {
+    "css:build": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/styles.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmw/ChinaCat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonmw/ChinaCat/issues"
+  },
+  "homepage": "https://github.com/jasonmw/ChinaCat#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
